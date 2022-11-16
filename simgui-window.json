@@ -1,0 +1,105 @@
+{
+  "MainWindow": {
+    "GLOBAL": {
+      "height": "847",
+      "maximized": "1",
+      "style": "1",
+      "userScale": "2",
+      "width": "1600",
+      "xpos": "1600",
+      "ypos": "53"
+    }
+  },
+  "Window": {
+    "###/FMSInfo": {
+      "Collapsed": "0",
+      "Pos": "60,60",
+      "Size": "169,167"
+    },
+    "###/LiveWindow/Drivetrain": {
+      "Collapsed": "0",
+      "Pos": "1336,481",
+      "Size": "242,86"
+    },
+    "###/LiveWindow/OnBoardIO": {
+      "Collapsed": "0",
+      "Pos": "60,60",
+      "Size": "148,86"
+    },
+    "###/LiveWindow/Ungrouped/DifferentialDrive[1]": {
+      "Collapsed": "0",
+      "Pos": "213,291",
+      "Size": "300,350"
+    },
+    "###/LiveWindow/Ungrouped/Scheduler": {
+      "Collapsed": "0",
+      "Pos": "522,294",
+      "Size": "400,200"
+    },
+    "###/SmartDashboard/SendableChooser[0]": {
+      "Collapsed": "0",
+      "Pos": "215,219",
+      "Size": "254,54"
+    },
+    "###DIO": {
+      "Collapsed": "0",
+      "Pos": "1290,476",
+      "Size": "162,215"
+    },
+    "###Encoders": {
+      "Collapsed": "0",
+      "Pos": "1335,27",
+      "Size": "231,445"
+    },
+    "###FMS": {
+      "Collapsed": "0",
+      "Pos": "4,635",
+      "Size": "283,146"
+    },
+    "###Joysticks": {
+      "Collapsed": "0",
+      "Pos": "13,675",
+      "Size": "796,155"
+    },
+    "###Keyboard 0 Settings": {
+      "Collapsed": "0",
+      "Pos": "10,50",
+      "Size": "300,560"
+    },
+    "###NetworkTables": {
+      "Collapsed": "0",
+      "Pos": "159,23",
+      "Size": "750,185"
+    },
+    "###Other Devices": {
+      "Collapsed": "0",
+      "Pos": "1084,25",
+      "Size": "250,695"
+    },
+    "###PWM Outputs": {
+      "Collapsed": "0",
+      "Pos": "1086,724",
+      "Size": "110,81"
+    },
+    "###System Joysticks": {
+      "Collapsed": "0",
+      "Pos": "3,261",
+      "Size": "192,218"
+    },
+    "###Timing": {
+      "Collapsed": "0",
+      "Pos": "4,125",
+      "Size": "135,127"
+    },
+    "Debug##Default": {
+      "Collapsed": "0",
+      "Pos": "60,60",
+      "Size": "400,400"
+    },
+    "Robot State": {
+      "Collapsed": "0",
+      "Pos": "5,20",
+      "Size": "92,99"
+    }
+  }
+}
