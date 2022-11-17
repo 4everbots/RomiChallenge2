@@ -31,11 +31,13 @@ public class DriveDistanceCorrected extends CommandBase {
 
   // PID constants
   private final double kP = 0.0885;
-  private final double kI = 0.2;
+  // kI guess: 0.2
+  private final double kI = 0;
   // kI related vars, inital setting
   private double errorSum = 0;
   private double lastTimestamp = 0;
-  private final double kD = 0.05;
+  // kD guess: 0.05
+  private final double kD = 0;
   // kD lastError initial
   private double lastError = 0;
 
