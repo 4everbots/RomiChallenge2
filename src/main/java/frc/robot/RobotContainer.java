@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutonomousChallenge;
+import frc.robot.commands.AutonomousChallenge2;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
 import frc.robot.subsystems.Drivetrain;
@@ -75,6 +76,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
     m_chooser.addOption("Challenge 1", new AutonomousChallenge(m_drivetrain));
+    m_chooser.addOption("Challenge 2", new AutonomousChallenge2(m_drivetrain));
     SmartDashboard.putData(m_chooser);
   }
 

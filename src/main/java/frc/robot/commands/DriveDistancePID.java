@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DriveDistanceCorrected extends CommandBase {
+public class DriveDistancePID extends CommandBase {
   private final Drivetrain m_drive;
   private final double m_speed;
   private final double m_distance;
@@ -29,23 +29,29 @@ public class DriveDistanceCorrected extends CommandBase {
   //   - https://www.youtube.com/watch?v=Z24fSBVJeGs
   // good luck!
 
-  // PID constants
-  private final double kP = 0.06;
-  // kI guess: 0.2
-  private final double kI = 0.3;
-  // kI related vars, inital setting
-  private double errorSum = 0;
-  private double lastTimestamp = 0;
-  // kD guess: 0.05
-  private final double kD = 0;
-  // kD lastError initial
-  private double lastError = 0;
+  // Define all the variables necesary for PID control:
 
-  // Set up a limiting factor for kI; this will have it activate only within a 5 degree error
-  private final double kI_limit = 5;
+  // PID constants
+  private final double m_kP = 0.06;
+  private final double m_kI = 0.3;
+  // kD guess: 0.05 - remove when you start tuning
+  private final double m_kD = 0;
+
+  // Define lastTimestamp; this keeps the last timestamp of when the execute block was run
+  private double lastTimestamp = 0;
+
+  // Set up a limiting factor for kI; this will have it activate only within a 2 degree error
+  private final double m_kI_limit = 2;
+  // Define errorSum; this will keep the sum of all errors over time when kI is within limits
+  // This will eventually be multiplied by kI and inversely added back into the robot's turn
+  private double m_errorSum = 0;
+
+  // Define lastError; this keeps the last error value of the robot
+  private double m_lastError = 0;
+
 
   /**
-   * Creates a new DriveDistanceCorrected. This command will drive your your robot for a desired distance at
+   * Creates a new DriveDistancePID. This command will drive the robot for a desired distance at
    * a desired speed.
    *
    * @param speed The speed at which the robot will turn, 1 being fastest and 0 being completely stopped
@@ -54,7 +60,7 @@ public class DriveDistanceCorrected extends CommandBase {
    * @param drive The drive subsystem on which this command will run, required so that multiple methods
    * cannot be sending conflicting values to the motors
    */
-  public DriveDistanceCorrected(double speed, double inches, Drivetrain drive) {
+  public DriveDistancePID(double speed, double inches, Drivetrain drive) {
     m_speed = speed;
     m_distance = inches;
     m_drive = drive;
@@ -73,43 +79,49 @@ public class DriveDistanceCorrected extends CommandBase {
     // Reset encoders so we have a point of reference for distance
     m_drive.resetEncoders();
     // Reset kI and kD-related vars
-    errorSum = 0;
     lastTimestamp = Timer.getFPGATimestamp();
-    lastError = 0;
+    m_errorSum = 0;
+    m_lastError = 0;
   }
   
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Get the opposite of the Z gyro (this is our turning/drift error)
-    double driveError = -m_drive.getGyroAngleZ();
-    // Calculate deltaT and errorSum (both extentions of kI)
-    double dT = Timer.getFPGATimestamp() - lastTimestamp;
-    // Only calculate the errorSum (and therefore kI) if within the threshold of kI_limit
-    if (Math.abs(driveError) < kI_limit){
-      errorSum += driveError * dT;
-    }
-    //kD math
-    double errorRate = (driveError - lastError) / dT;
+    // Get the opposite of the Z gyro (this is our raw turning error, aka how much we are drifting)
+    double m_driveError = -m_drive.getGyroAngleZ();
 
-    // PID math to pass into arcadeDrive turn
-    double turnPower = kP * driveError + kI * errorSum + kD * errorRate;
+    // Calculate deltaT; this is the period of time over which inputs are taken, calculated, and outputted
+    // We get this by subtracting the current time from the last time execute() ran
+    // This is usually 20ms, we complete this calculation just to be more accurate
+    double dT = Timer.getFPGATimestamp() - lastTimestamp;
+
+    // Only calculate the errorSum (and therefore kI) if error is within the threshold of kI_limit
+    if (Math.abs(m_driveError) < m_kI_limit){
+      m_errorSum += m_driveError * dT;
+    }
+
+    // Find the rate of error to use in terms of kD
+    double m_errorRate = (m_driveError - m_lastError) / dT;
+
+    // Finally, PID math to pass into arcadeDrive turn
+    double turnPower = m_kP * m_driveError + m_kI * m_errorSum + m_kD * m_errorRate;
     m_drive.arcadeDrive(m_speed, turnPower, false);
 
     // Update lastTimestamp and lastError for correct kI and kD values
     lastTimestamp = Timer.getFPGATimestamp();
-    lastError = driveError;
+    m_lastError = m_driveError;
 
     // For testing and debugging
-    SmartDashboard.putNumber("Error (kP term)", driveError);
-    SmartDashboard.putNumber("Error Sum (kI term)", errorSum);
-    SmartDashboard.putNumber("Error Rate (kD term)", errorRate);
+    SmartDashboard.putNumber("Raw Error (kP term contrib.)", m_driveError);
+    SmartDashboard.putNumber("Error Sum (kI term contrib.)", m_errorSum);
+    SmartDashboard.putNumber("Error Rate (kD term contrib.)", m_errorRate);
+    System.out.println("dT: "+dT);
   }
   
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Stop driving once the drive is complete
+    // Stop driving once the drive is complete or interrupted
     m_drive.arcadeDrive(0, 0);
   }
 

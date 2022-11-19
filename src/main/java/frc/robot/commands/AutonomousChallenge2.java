@@ -7,7 +7,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class AutonomousChallenge extends SequentialCommandGroup {
+public class AutonomousChallenge2 extends SequentialCommandGroup {
   /**
    * Creates a new Autonomous Drive based on distance. This will drive out for a specified distance,
    * turn around and drive back.
@@ -15,18 +15,15 @@ public class AutonomousChallenge extends SequentialCommandGroup {
    * @param drivetrain The drive subsystem on which this command will run, required so that multiple methods
    * cannot be sending conflicting values to the motors
    */
-  public AutonomousChallenge(Drivetrain drivetrain) {
+  public AutonomousChallenge2(Drivetrain drivetrain) {
+    System.out.println("4everbots™");
     addCommands(
-        new DriveDistancePID(1, 251.81, drivetrain),
-        new TurnDegrees(1, 87, drivetrain),
-        new DriveDistancePID(1, 69, drivetrain),
-        new TurnDegrees(1, 87, drivetrain),
-        new DriveDistancePID(1, 269, drivetrain));
+      // We need to use DriveDistancePID as our driving method due to the Romi's tendancy to drift, but
+      // we can just use plain old TurnDegrees (making use of the encoders) to turn because that isn't affected by drift
 
-        // old commands
-        // new DriveDistance(-0.5, 10, drivetrain),
-        // new TurnDegrees(-0.5, 180, drivetrain),
-        // new DriveDistance(-0.5, 10, drivetrain),
-        // new TurnDegrees(0.5, 180, drivetrain));
+      // These values are just for current testing, we will replace them later with challenge values
+      // (Yes, I am too lazy to set up the testing mode in the dashboard L)
+      new DriveDistancePID(0.5, 50, drivetrain),
+      new TurnDegrees(0.5, 90, drivetrain));
   }
 }
