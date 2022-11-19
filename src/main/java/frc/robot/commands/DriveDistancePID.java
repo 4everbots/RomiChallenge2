@@ -72,12 +72,14 @@ public class DriveDistancePID extends CommandBase {
   public void initialize() {
     // Stop motors, just to be safe
     m_drive.arcadeDrive(0, 0);
+
     // Reset gyro so we have a point of reference for keeping robot straight
     // This means that however the robot is facing when this method is called,
-    // it will attempt to keep that angle (as it thinks that is "straight"; 0)
+    // it will attempt to keep that angle (as it thinks that is "straight" or 0)
     m_drive.resetGyro();
     // Reset encoders so we have a point of reference for distance
     m_drive.resetEncoders();
+    
     // Reset kI and kD-related vars
     lastTimestamp = Timer.getFPGATimestamp();
     m_errorSum = 0;
