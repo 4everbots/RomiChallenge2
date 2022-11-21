@@ -5,17 +5,19 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class AutonomousChallenge2 extends SequentialCommandGroup {
   /**
-   * Creates a new Autonomous Drive based on distance. This will drive out for a specified distance,
-   * turn around and drive back.
+   * The autonomous command for Romi Challenge 2
    *
    * @param drivetrain The drive subsystem on which this command will run, required so that multiple methods
    * cannot be sending conflicting values to the motors
+   * @param armSubsystem The arm subsystem on which this command will run, required so that multiple methods
+   * cannot be sending conflicting values to the motors
    */
-  public AutonomousChallenge2(Drivetrain drivetrain) {
+  public AutonomousChallenge2(Drivetrain drivetrain, ArmSubsystem armSubsystem) {
     System.out.println("4everbots™");
     addCommands(
       // We need to use DriveDistancePID as our driving method due to the Romi's tendancy to drift, but

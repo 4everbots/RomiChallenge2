@@ -18,10 +18,10 @@ public class ArmCommand extends CommandBase {
     /**
      * Creates a new ArmCommand. This command has the ability to drive the Romi's arm extention using the
      * ArmSubsystem.
-     * @param armSubsystem Add desc
-     * @param liftSupplier Add desc
-     * @param tiltSupplier Add desc
-     * @param gripSupplier Add desc
+     * @param armSubsystem Add comment
+     * @param liftSupplier Add comment
+     * @param tiltSupplier Add comment
+     * @param gripSupplier Add comment
      */
     public ArmCommand(
         // Add comment

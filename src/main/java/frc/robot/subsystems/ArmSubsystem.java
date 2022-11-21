@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * <p>Tilt: EXT2 (PWM4), EXT4 (ANLG2)
  * <p>Gripper: EXT5 (PWM6)
  */
-public class ArmSubsystem extends SubsystemBase{
+public class ArmSubsystem extends SubsystemBase {
     // Add comment
     public final Servo m_lift = new Servo(2);
     private final AnalogInput m_liftFeedback = new AnalogInput(0);
@@ -35,25 +35,24 @@ public class ArmSubsystem extends SubsystemBase{
     public final Servo m_grip = new Servo(6);
 
     // Add comment
-    public enum ChannelMode{
-        SRVO,
-        ANLG
-    }
-
-    // Add comment
     /**
      * RobotArm constructor:
-     * @param SRVO
-     * @param ANLG
+     * Add comment
      */
-    public ArmSubsystem(ChannelMode SRVO, ChannelMode ANLG) {
+    public ArmSubsystem() {
         
     }
 
+    /**
+     * @return the feedback from the lift servo, as an AnalogInput type
+     */
     public AnalogInput getLiftFeedback() {
         return m_liftFeedback;
     }
 
+    /**
+     * @return the feedback from the tilt servo, as an AnalogInout type
+     */
     public AnalogInput getTiltFeedback() {
         return m_tiltFeedback;
     }
