@@ -27,5 +27,6 @@ public class AutonomousChallenge2 extends SequentialCommandGroup {
       // (Yes, I am too lazy to set up the testing mode in the dashboard L)
       new DriveDistancePID(0.5, 50, drivetrain),
       new TurnDegrees(0.5, 90, drivetrain));
+      new ArmCommand(() -> 0.5, () -> 0.5, () -> 0.5, armSubsystem);
   }
 }

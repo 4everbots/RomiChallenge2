@@ -27,20 +27,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * <p>Gripper: EXT5 (PWM6)
  */
 public class ArmSubsystem extends SubsystemBase {
-    // Add comment
+    // Defines our Servo (outputs) and our AnalogInputs so that the subsystem
+    // can transmit to/from the servos
     public final Servo m_lift = new Servo(2);
     private final AnalogInput m_liftFeedback = new AnalogInput(0);
     public final Servo m_tilt = new Servo(4);
     private final AnalogInput m_tiltFeedback = new AnalogInput(2);
     public final Servo m_grip = new Servo(6);
 
-    // Add comment
-    /**
-     * RobotArm constructor:
-     * Add comment
-     */
+    /** Creates a new ArmSubsystem */
     public ArmSubsystem() {
-        
+        // Any code that needs to run when the ArmSubsystem is initialized goes here
     }
 
     /**
