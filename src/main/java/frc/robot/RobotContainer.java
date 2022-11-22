@@ -13,6 +13,7 @@ import frc.robot.commands.AutonomousChallenge2;
 import frc.robot.commands.AutonomousDistance;
 import frc.robot.commands.AutonomousTime;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -30,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain = new Drivetrain();
+  private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
   private final OnBoardIO m_onboardIO = new OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT);
 
   // Assumes a gamepad plugged into channnel 0
@@ -76,7 +78,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
     m_chooser.addOption("Challenge 1", new AutonomousChallenge(m_drivetrain));
-    m_chooser.addOption("Challenge 2", new AutonomousChallenge2(m_drivetrain));
+    m_chooser.addOption("Challenge 2", new AutonomousChallenge2(m_drivetrain, m_armSubsystem));
     SmartDashboard.putData(m_chooser);
   }
 
