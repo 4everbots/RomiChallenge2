@@ -32,10 +32,9 @@ public class DriveDistancePID extends CommandBase {
   // Define all the variables necesary for PID control:
 
   // PID constants
-  private final double m_kP = 0.06;
-  private final double m_kI = 0.3;
-  // kD guess: 0.05 - remove when you start tuning
-  private final double m_kD = 0;
+  private final double m_kP = 0.0225; //0.012, .017
+  private final double m_kI = 0.002; //0.3
+  private final double m_kD = 0.0024; // 0.0028
 
   // Define lastTimestamp; this keeps the last timestamp of when the execute block was run
   private double lastTimestamp = 0;
